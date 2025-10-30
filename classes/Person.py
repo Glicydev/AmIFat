@@ -4,7 +4,11 @@ class Person:
   def __init__(self, size, weight):
     self.__size = size
     self.__weight = weight
-    self.is_obese = self.__weight / pow(self.__size, 2) >= 30
+    self.__is_obese = self.__weight / pow(self.__size, 2) >= 25
+    
+  @property
+  def is_obese(self):
+    return self.__is_obese
   
   def to_array(self):
     return np.array([
