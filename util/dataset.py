@@ -1,0 +1,132 @@
+import numpy as np
+from sklearn.model_selection import train_test_split
+from classes.Person import Person
+    
+persons = [
+    Person(1.50, 45),
+    Person(1.52, 48),
+    Person(1.55, 50),
+    Person(1.57, 52),
+    Person(1.60, 55),
+    Person(1.62, 58),
+    Person(1.65, 60),
+    Person(1.67, 62),
+    Person(1.70, 65),
+    Person(1.72, 68),
+    Person(1.75, 70),
+    Person(1.77, 73),
+    Person(1.80, 75),
+    Person(1.82, 78),
+    Person(1.85, 80),
+    Person(1.50, 90),
+    Person(1.52, 95),
+    Person(1.55, 100),
+    Person(1.57, 105),
+    Person(1.60, 110),
+    Person(1.62, 115),
+    Person(1.65, 120),
+    Person(1.67, 125),
+    Person(1.70, 130),
+    Person(1.72, 135),
+    Person(1.75, 140),
+    Person(1.77, 145),
+    Person(1.80, 150),
+    Person(1.82, 155),
+    Person(1.85, 160),
+    # 30
+    Person(1.50, 48),
+    Person(1.52, 52),
+    Person(1.55, 56),
+    Person(1.57, 60),
+    Person(1.60, 64),
+    Person(1.62, 68),
+    Person(1.65, 72),
+    Person(1.67, 76),
+    Person(1.70, 80),
+    Person(1.72, 84),
+    Person(1.75, 88),
+    Person(1.77, 92),
+    Person(1.80, 96),
+    Person(1.82, 100),
+    Person(1.85, 104),
+    Person(1.50, 70),
+    Person(1.52, 75),
+    Person(1.55, 80),
+    Person(1.57, 85),
+    Person(1.60, 90),
+    Person(1.62, 95),
+    Person(1.65, 100),
+    Person(1.67, 105),
+    Person(1.70, 110),
+    Person(1.72, 115),
+    Person(1.75, 120),
+    Person(1.77, 125),
+    Person(1.80, 130),
+    Person(1.82, 135),
+    Person(1.85, 140),
+    # 60
+    Person(1.50, 40),
+    Person(1.52, 42),
+    Person(1.55, 44),
+    Person(1.57, 46),
+    Person(1.60, 48),
+    Person(1.62, 50),
+    Person(1.65, 52),
+    Person(1.67, 54),
+    Person(1.70, 56),
+    Person(1.72, 58),
+    Person(1.75, 60),
+    Person(1.77, 62),
+    Person(1.80, 64),
+    Person(1.82, 66),
+    Person(1.85, 68),
+    Person(1.50, 100),
+    Person(1.52, 105),
+    Person(1.55, 110),
+    Person(1.57, 115),
+    Person(1.60, 120),
+    Person(1.62, 125),
+    Person(1.65, 130),
+    Person(1.67, 135),
+    Person(1.70, 140),
+    Person(1.72, 145),
+    Person(1.75, 150),
+    Person(1.77, 155),
+    Person(1.80, 160),
+    Person(1.82, 165),
+    Person(1.85, 170),
+    # 90
+    Person(1.50, 50),
+    Person(1.52, 55),
+    Person(1.55, 60),
+    Person(1.57, 65),
+    Person(1.60, 70),
+    Person(1.62, 75),
+    Person(1.65, 80),
+    Person(1.67, 85),
+    Person(1.70, 90),
+    Person(1.72, 95)
+]
+
+def getDataset():
+    x = np.array([p.to_array() for p in persons])
+    y = np.array([1 if p.is_obese else 0 for p in persons])
+
+    # Split the data
+    x_train, x_test, y_train, y_test = train_test_split(
+      x, y, test_size=1/3, train_size=2/3
+    )
+    
+    # Get the train/val repartition
+    nb_x = len(x_train)
+    nb_val = round(nb_x / 4)
+    nb_train = nb_x - nb_val
+    
+    # Get the val and train by repartition
+    x_val = x_train[:nb_val]
+    y_val = y_train[:nb_val]
+    
+    x_train = x_train[-nb_train:]
+    y_train = y_train[-nb_train:]
+
+    return x_train, y_train, x_val, y_val, x_test, y_test
