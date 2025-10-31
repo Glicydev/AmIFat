@@ -2,13 +2,21 @@ from classes.BColors import BColors
 from util.interactions import user_test_model
 from classes.FatModel import FatModel
 from classes.BColors import BColors
+from classes.Displayer import Displayer
 
 model = FatModel(epochs=1000)
-model.build_model()
+try:
+  Displayer.info_message("Construction du modèle...")
+  Displayer.success_message("Modèle construit avec succès.")
 
-history = model.train()
-eval_result = model.evaluate()
-model.save("models/fatModel.keras")
+  Displayer.info_message("Entraînement du modèle...")
+  history = model.train()
+  eval_result = model.evaluate()
+  Displayer.success_message("Modèle entraîné avec succès.")
+  
+except Exception as e:
+  Displayer.error_message(str(e))
+  exit()
 
 train_loss = history.history['loss'][-1]
 val_loss = history.history['val_loss'][-1]

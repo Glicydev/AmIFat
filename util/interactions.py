@@ -9,7 +9,7 @@ def user_test_model(model):
   prediction = model.predict(size, weight)[0][0]
 
   obese_chances = round(prediction * 100, 2)
-  not_obese_chances = 100 - obese_chances
+  not_obese_chances = round(100 - obese_chances,  2)
 
   percentage_Color = BColors.getColorFromVal(obese_chances, 0, 100)
 
