@@ -5,6 +5,7 @@ from classes.BColors import BColors
 from classes.Displayer import Displayer
 
 model = FatModel(epochs=1000)
+
 try:
   Displayer.info_message("Construction du modèle...")
   Displayer.success_message("Modèle construit avec succès.")
