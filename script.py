@@ -8,12 +8,15 @@ model = FatModel(epochs=1000)
 
 try:
   Displayer.info_message("Construction du modèle...")
+  model.build()
   Displayer.success_message("Modèle construit avec succès.")
 
   Displayer.info_message("Entraînement du modèle...")
   history = model.train()
   eval_result = model.evaluate()
   Displayer.success_message("Modèle entraîné avec succès.")
+
+  model.save()
   
 except Exception as e:
   Displayer.error_message(str(e))
@@ -21,6 +24,15 @@ except Exception as e:
 
 train_loss = history.history['loss'][-1]
 val_loss = history.history['val_loss'][-1]
+
+if (train_loss < val_loss):
+  Displayer.warning_message("Attention : Le modèle semble surappris (overfitting).")
+
+if (train_loss > 0.3):
+  Displayer.warning_message("Attention : Le modèle n'a pas bien appris les données d'entraînement.")
+
+if (val_loss > 0.3):
+  Displayer.warning_message("Attention : Le modèle n'a pas bien généralisé sur les données de validation.")
 
 train_loss_color = BColors.getColorFromVal(train_loss, 0, 1)
 val_loss_color = BColors.getColorFromVal(val_loss, 0, 1)

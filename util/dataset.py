@@ -112,21 +112,6 @@ def getDataset():
     x = np.array([p.to_array() for p in persons])
     y = np.array([1 if p.is_obese else 0 for p in persons])
 
-    # Split the data
-    x_train, x_test, y_train, y_test = train_test_split(
+    return train_test_split(
       x, y, test_size=1/3, train_size=2/3
     )
-    
-    # Get the train/val repartition
-    nb_x = len(x_train)
-    nb_val = round(nb_x / 4)
-    nb_train = nb_x - nb_val
-    
-    # Get the val and train by repartition
-    x_val = x_train[:nb_val]
-    y_val = y_train[:nb_val]
-    
-    x_train = x_train[-nb_train:]
-    y_train = y_train[-nb_train:]
-
-    return x_train, y_train, x_val, y_val, x_test, y_test

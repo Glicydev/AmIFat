@@ -12,13 +12,13 @@ class FatModel:
   
     
   def __load_dataset(self):
-    self.__x_train, self.__y_train, self.__x_val, self.__y_val, self.__x_test, self.__y_test = getDataset()
+    self.__x_train, self.__x_test, self.__y_train, self.__y_test = getDataset()
 
   def __check_had_model(self):
     if not hasattr(self, '_FatModel__model'):
       raise Exception("Le modèle n'a pas été construit ou chargé. Veuillez d'abord appeler build_model() ou load_model().")
 
-  def build_model(self):
+  def build(self):
     self.__load_dataset()
 
     # Build the model
@@ -27,7 +27,7 @@ class FatModel:
       Dense(units=1, activation='sigmoid')
     ])
 
-  def load_model(self):
+  def load_from_source(self):
     self.__model = load_model(self.__path)
     
   def train(self):
@@ -39,7 +39,7 @@ class FatModel:
       x=self.__x_train,
       y=self.__y_train,
       epochs=self.__epochs,
-      validation_data=(self.__x_val, self.__y_val)
+      validation_split=0.2
     )
 
     return history
